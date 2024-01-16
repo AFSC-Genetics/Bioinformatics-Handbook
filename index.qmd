@@ -1,0 +1,12 @@
+---
+title: "Overview"
+---
+
+Welcome to the AFSC Bioinformatics Handbook. This handbook is meant to be a guide for new and current lab members doing any bioinformatic work. The book covers creating an account with SEDNA, using the Slurm submission scheduler, local and command line text editors, basic awk/sed/grep commands, ...
+
+If there is additional information that you would like to see on this page please reach out to Sara Schaal (sara.schaal\@noaa.gov) or Patrick Barry (patrick.barry\@noaa.gov).
+
+Additional bioinformatics resources:
+
+- [Eric Anderson Bioinformatics Guide](https://eriqande.github.io/eca-bioinf-handbook/)
+- [SEDNA Guide](https://docs.google.com/document/d/1nn0T0OWEsQCBoCdaH6DSY69lQSbK3XnPlseyyQuU2Lc/edit#heading=h.qpx57rvxr0sj)
