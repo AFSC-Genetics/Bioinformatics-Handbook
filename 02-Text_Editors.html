@@ -224,15 +224,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="3.0.2" class="anchored" data-anchor-id="moving-files-to-and-from-servers"><span class="header-section-number">3.0.2</span> Moving files to and from servers</h3>
 <p>To move a files, you should use the <code>scp</code> command which is generally formatted as follows <code>scp &lt;path from source&gt; &lt;path to destination&gt;</code></p>
 <p>To move a file from your local computer to sedna you can use the following script:</p>
-<div id="d2c35003" class="cell" data-execution_count="1">
+<div id="cf8263d0" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>scp <span class="op">-</span>P <span class="dv">22</span> <span class="op">&lt;</span>username<span class="op">&gt;@</span><span class="fl">161.55.52.157</span>:<span class="op">&lt;</span>SEDNA_PATH<span class="op">&gt;/&lt;</span>filename<span class="op">&gt;</span> <span class="op">&lt;</span>LOCAL_PATH<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To move a file from sedna to your local computer you can use the following:</p>
-<div id="becf72a4" class="cell" data-execution_count="2">
+<div id="ec17d322" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scp <span class="op">-</span>P <span class="dv">22</span> <span class="op">&lt;</span>LOCAL_PATH<span class="op">&gt;</span>\<span class="op">&lt;</span>filename<span class="op">&gt;</span> <span class="op">&lt;</span>username<span class="op">&gt;@</span>sedna.nwfsc2.noaa.gov:<span class="op">&lt;</span>SEDNA_PATH<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To move an entire directory you would add the <code>-r</code> flag:</p>
-<div id="e00a63d0" class="cell" data-execution_count="3">
+<div id="69d67c0a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scp <span class="op">-</span>P <span class="dv">22</span> <span class="op">-</span>r <span class="op">&lt;</span>username<span class="op">&gt;@</span><span class="fl">161.55.52.157</span>:<span class="op">&lt;</span>SEDNA_PATH<span class="op">&gt;/&lt;</span>foldername<span class="op">&gt;</span> <span class="op">&lt;</span>LOCAL_PATH<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 

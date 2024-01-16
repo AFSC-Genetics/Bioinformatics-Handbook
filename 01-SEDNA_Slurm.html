@@ -221,11 +221,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 - <strong>Giles Goetz</strong>, Bioinformatics Specialist at the NWFSC giles.goetz@noaa.gov<br>
 - <strong>Marcus Nedelmann</strong>, Linux System Administrator at the NWFSC marcus.nedelmann@noaa.gov</p>
 <p>To access Sedna, you need to use the following command:</p>
-<div id="4f588dd1" class="cell" data-execution_count="1">
+<div id="8ec0cd72" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    ssh <span class="op">&lt;</span>username<span class="op">&gt;@</span>sedna.nwfsc2.noaa.gov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>or if this gives you issues you many need to use the direct IP address:</p>
-<div id="82891e93" class="cell" data-execution_count="2">
+<div id="3da178ba" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    ssh <span class="op">&lt;</span>username<span class="op">&gt;@</span><span class="fl">161.55.52.157</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once you are on Sedna you land in your user home directory <code>/home/&lt;username&gt;</code> where you have a default of 4 TB of space to perform your work on. Its typical to offload your project files to long term storage when it is completed to create more space on your partition. However, if you run out of space and can not clear off files because the projects are ongoing and you still need intermediate files, you can open a work request to increase your space allotment temporarily.</p>
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="interactive-shell" class="level4" data-number="2.0.3.1">
 <h4 data-number="2.0.3.1" class="anchored" data-anchor-id="interactive-shell"><span class="header-section-number">2.0.3.1</span> Interactive shell</h4>
 <p>As stated above, when you login to the cluster you land on a <strong>head node</strong> and if you are doing anything other than moving through your directories and looking at files, it is best practice to move onto a <strong>compute node</strong> using an interactive shell. To do this, you should use the <code>srun</code> command which enables you to start an interactive session:</p>
-<div id="c3f8c435" class="cell" data-execution_count="3">
+<div id="1b8b6aac" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>srun <span class="op">-</span>c <span class="dv">1</span> <span class="op">-</span>t <span class="dv">12</span>:<span class="dv">00</span>:<span class="dv">00</span> <span class="op">--</span>pty <span class="op">/</span><span class="bu">bin</span><span class="op">/</span>bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What this command is doing is creating what is called a pseudo-terminal <code>--pty</code> that gives you one compute node with the <code>-c 1</code> flag for 12 hours with the <code>-t 12:00:00</code> flag running bash <code>/bin/bash</code>. You should set the time for whatever you need. Its typical to request it for a full work day if you will be working on the cluster all day. After that time passes, the connection to the <strong>compute node</strong> will be terminated, but you can always just start another one with the same command if you need to continue work on it.</p>
@@ -247,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bash-job" class="level4" data-number="2.0.3.2">
 <h4 data-number="2.0.3.2" class="anchored" data-anchor-id="bash-job"><span class="header-section-number">2.0.3.2</span> Bash job</h4>
 <p>The above command is technically running a job on the cluster, but it is in an interactive format. It is good for moving files around, testing scripts that you are working on, zipping files, etc. Most scripts that you will run on the cluster will be non-interactive and run with a submission script using what is called a batch job. A batch job is run using the <code>sbatch</code> command on job files that end in <code>.sh</code>. The job file is the program that you wish to run but takes on a specific format. Here is an example header of a shell script:</p>
-<div id="aa88e583" class="cell" data-execution_count="4">
+<div id="6556e770" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pcod_peaks</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=24:00:00</span></span>
@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>--job_name</code> sets the name of your job <code>--time</code> sets how long you want to use a compute node for this job in day-hours:mins:secs format; 1-12:00:00 would run for 1 and half days <code>--mem</code> sets the amount of RAM you need allocated to your job which can be set typically in either MB or GB of RAM. <code>--mail-type</code> tells Slurm when you want to be emailed about your job and in this case we want an email when the job fails with FAIL, but can be NONE (default), BEGIN, END, FAIL, REQUEUE, ALL. <code>--mail-user</code> sets the email you want Slurm to use <code>--output</code> sets the path and file name to put your stdout to go which will be any output that is given from the programs you are running in the job script <code>--error</code> sets the path and file name of the stderr which gives any issues that arose in the run. It is good practice to add the <code>%j</code> to these file names because it gives the filename the job ID from that run of the job script. This makes documenting and tracking different runs of the same script easy.</p>
 <p>Other common options include <code>--cpus-per-task=&lt;ncpus&gt;</code> where ncpus is the number of cores you need to run your job and is used when your job can <code>partition=&lt;partitionName&gt;</code> where partitionName is the name of the partition you want your job run on. The latter option is used on Sedna when for example you want your job to run on the himem computers. These are only for jobs that require a large amount of RAM and thus the default on Slurm is to run on the standard partition with lower RAM capacity computers. There will be instances however where you exceed the RAM on those (see below section on Sedna hardware).</p>
 <p>Any additional lines in the job script will be lines running the specific program/command you need to run. Here is a simple example in a file called <code>echoTest.sh</code>:</p>
-<div id="1b4ec0d4" class="cell" data-execution_count="5">
+<div id="7aed3a9c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=echo_test</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:05:00</span></span>
@@ -275,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"Today is $(date)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This script prints the date to your stdout file using the <code>echo</code> command. Once you set up your job options and have the program set in the script to run you would run the script from the folder that script is in using <code>sbatch echoTest.sh</code>. When you run that line, Slurm should output the job ID that it gave your job:</p>
-<div id="bfb77b0c" class="cell" data-execution_count="6">
+<div id="2100f5d4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> Submitted batch job <span class="dv">696063</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="other-useful-commands-in-slurm" class="level4" data-number="2.0.3.3">
 <h4 data-number="2.0.3.3" class="anchored" data-anchor-id="other-useful-commands-in-slurm"><span class="header-section-number">2.0.3.3</span> Other useful commands in Slurm</h4>
 <p>You can view the jobs that are running <code>squeue</code> on the command line. This will give you an output of all the current jobs running on Sedna:</p>
-<div id="729b8650" class="cell" data-execution_count="7">
+<div id="6d5c8e53" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a> JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dv">693037</span>      node snake_ma    sgurr  R <span class="dv">2</span><span class="op">-</span><span class="dv">23</span>:<span class="dv">43</span>:<span class="dv">37</span>      <span class="dv">1</span> node03</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dv">695733</span>      node snakejob    sgurr  R <span class="dv">1</span><span class="op">-</span><span class="dv">12</span>:<span class="dv">22</span>:<span class="dv">32</span>      <span class="dv">1</span> node29</span>
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>JOBID</code> are the IDs of the current jobs that are running <code>PARTITION</code> is the parition that the jobs are running on which will be node for standard nodes and himem for the high memory nodes <code>NAME</code> is the name you gave your job <code>USER</code> is the user that is running the job <code>ST</code> is the state the job is in which is R for running, PD for pending, CG for completing, CD for completed, F for failed. The latter three are only briefly printed out in the squeue output. Once they reach those points the job is removed from the squeue. <code>TIME</code> is how long the job has been running <code>NODES</code> are the number of nodes the job is running on <code>NODELIST</code> are the names of the nodes that the job is running on or if the job is not running yet it will give a reason that it isn’t running</p>
 <p>If you just want to see your jobs that are running you can add the user flag when running this command <code>squeue -u &lt;username&gt;</code> and then you will only see a list of your jobs.</p>
 <p>If your job is in a pending state, that may mean that there are not resources available at the moment to run your job. You can check the status of the cluster nodes by running <code>sinfo</code> which will give an output like the example output below:</p>
-<div id="5f1efb29" class="cell" data-execution_count="8">
+<div id="1dded650" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>node<span class="op">*</span>        up   infinite      <span class="dv">2</span>    mix node[<span class="dv">0</span><span class="er">3</span>,<span class="dv">29</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>node<span class="op">*</span>        up   infinite     <span class="dv">10</span>  alloc node[<span class="dv">0</span><span class="er">7</span>,<span class="dv">20</span><span class="op">-</span><span class="dv">21</span>,<span class="dv">30</span><span class="op">-</span><span class="dv">36</span>]</span>
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>NODELIST</code> the partition name and the node numbers in each given state</p>
 <p>If you start a job, but realize something is not correct and you need to cancel the job you can cancel the job in a few different ways. The first is if it is a single job you can use the job ID <code>scancel &lt;jobID&gt;</code> or if you only have a single job running and you do not have the job ID handy you can also use <code>scancel -u &lt;username&gt;</code>. If you have multiple jobs running and you want to cancel them all the previous command will also work. You can also cancel a range of job IDs <code>scancel {&lt;firstJobID&gt;..&lt;lastJobID&gt;}</code>.</p>
 <p>After you complete a job, you can check how the efficency of your runs cpu and memory usage using the <code>seff &lt;jobID&gt;</code> command. This command will give you some important information about your run especially if you are in the process of testing scripts for how much memory or time you need to allocate to the job. An example output is below:</p>
-<div id="c6f5776c" class="cell" data-execution_count="9">
+<div id="94f18131" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Job ID: <span class="dv">163074</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Cluster: sedna</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>User<span class="op">/</span>Group: sschaal<span class="op">/</span>sschaal</span>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.0.4" class="anchored" data-anchor-id="software-on-sedna"><span class="header-section-number">2.0.4</span> Software on Sedna</h3>
 <p>Sedna uses modules in order to provide individuals with access to different software that has been install. To check what software is currently available on Sedna type <code>module avail</code>. For bioinformatics work, the majority of software will be listed under</p>
 <p>The first time you want to access modules on the cluster you need to type the following:</p>
-<div id="e7171364" class="cell" data-execution_count="10">
+<div id="0fdbd099" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>echo <span class="st">'export MODULEPATH=$</span><span class="sc">{MODULEPATH}</span><span class="st">:/opt/bioinformatics/modulefiles'</span> <span class="op">&gt;&gt;</span> <span class="op">~/</span>.bashrc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then logout of the cluster and log back in. This will set you up to use all the modules available to the cluster. If there is not a program listed that you need access to then open a work requesst with the Sedna staff at the following <a href="https://docs.google.com/forms/d/e/1FAIpQLSf2tDl9nJjihmHX9hM6ytMI3ToldqERVem1ge25-kp3JHw3tQ/viewform">link</a>.</p>
@@ -340,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="an-example-bioinformatics-job" class="level3" data-number="2.0.6">
 <h3 data-number="2.0.6" class="anchored" data-anchor-id="an-example-bioinformatics-job"><span class="header-section-number">2.0.6</span> An example bioinformatics job</h3>
 <p>Lets say that we want to index a genome for one of our bioinformatics projects. Here is an example batch job that would do this for the Atlantic cod gadMor3.0 genome:</p>
-<div id="fb29b0ef" class="cell" data-execution_count="11">
+<div id="bd702727" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=1GB</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=1:00:00</span></span>
