@@ -16,6 +16,7 @@ This section is essentially a copy of what is on the SEDNA bioinformatics cluste
 When you first connect to sedna, use the below command by adding the local host.
 
 ```{python}
+#| eval: false
 # replace USERNAME with your sedna account name
 ssh -L localhost:53682:localhost:53682 USERNAME@sedna.nwfsc2.noaa.gov
 ```
@@ -23,12 +24,14 @@ ssh -L localhost:53682:localhost:53682 USERNAME@sedna.nwfsc2.noaa.gov
 First, load rclone on sedna.
 
 ```{python}
+#| eval: false
 module load tools/rclone/1.59.2
 ```
 
 Configure a remote directory using the following steps:
 
 ```{python}
+#| eval: false
 # Step 1
 rclone config
 
@@ -159,6 +162,7 @@ If this step does not work as shown above (often the website will show an error)
 If the above step worked, you should see "Got code" on your ssh, and the next step will appear.
 
 ```{python}
+#| eval: false
 2024/02/08 12:07:06 NOTICE: Got code
 
 # Step 10
@@ -223,6 +227,7 @@ You may notice that there are three directories set up in this example. It may b
 Check that your remote directory leads you to the Google Drive folders you want:
 
 ```{python}
+#| eval: false
 # list directories
 rclone lsd RCLONE_DRIVE_NAME:
   
@@ -235,6 +240,7 @@ rclone lsd ablg_shared:
 If the data to be transferred is shared with you on Google (which is different from a shared drive), use the `--drive-shared-with-me` flag. You can only access this if you *do not* set up your directory as a shared drive.
 
 ```{python}
+#| eval: false
 rclone lsd RCLONE_DRIVE_NAME: --drive-shared-with-me
           -1 2021-04-22 17:00:11        -1 SEDNA for users
           -1 2023-11-19 22:49:14        -1 pink_salmon_run_timing
@@ -249,6 +255,7 @@ rclone lsd RCLONE_DRIVE_NAME:pink_salmon_run_timing --drive-shared-with-me
 You can search within subdirectories. Also, if you want to see the content of the folders, use `ls` to list all the files and the file sizes.
 
 ```{python}
+#| eval: false
 rclone ls RCLONE_DRIVE_NAME:pink_salmon_run_timing/Data --drive-shared-with-me
       108 Pink_blocklist_1x.txt
     22080 Pink_filtered_bamslist.txt
@@ -268,6 +275,7 @@ srun -c 1 -t 12:00:00 --pty /bin/bash
 Use the `rclone copy` command to transfer data. It incorporates its own checksum system during the transfer, so you can cancel and restart a transfer, and it should pick up where it left off without issues. If you want to see output during the transfer, you can add the verbose flag `-v` at the end of the line. If you are transferring to/from a drive shared with you, make sure to include the `--drive-shared-with-me` flag.
 
 ```{python}
+#| eval: false
 # FROM SEDNA TO GOOGLE DRIVE
 rclone copy /home/usr/directory/to/file.txt RCLONE_DRIVE_NAME:google/drive/directory -v
 
@@ -279,7 +287,7 @@ rclone copy RCLONE_DRIVE_NAME:google/drive/directory /home/usr/directory/to/tran
 If you plan to transfer entire folders, you can do more than one file at a time.
 
 ```{python}
-
+#| eval: false
 # navigate to directory 
 cd /directory/to/transfer
 
@@ -292,12 +300,14 @@ for i in /directory/to/transfer/ABLG*; do echo ${i}; rclone copy ${i} RCLONE_DRI
 Check if the entire folder was transferred properly if you are currently in the directory that has transferred. *NH - need to double check the code for this (**does it accept the astericks?**).*
 
 ```{python}
+#| eval: false
 rclone check RCLONE_DRIVE_NAME:google_drive_folder/* . --one-way
 ```
 
 Drawback of rclone: If you are transferring large amounts of data, you may run into an issue where your user rate limit is exceeded. This is a function of Google security measures that prevent continuous transferring in order to ward off illegal activities. As far as I am aware, there is no immediate solution, so you may have to wait hours (or longer) to restart your data transfer.
 
 ```{python}
+#| eval: false
 ERROR : Failed to copy: googleapi: Error 403: User rate limit exceeded., userRateLimitExceeded
 ```
 
@@ -310,6 +320,7 @@ Extract the executable file.
 On the command line for your home computer, navigate to the folder where you extracted the executable file. For me that is:
 
 ```{python}
+#| eval: false
 cd C:\rclone\rclone-v1.52.9-windows-amd64
 
 # I only had to complete this step once after downloading.
@@ -321,6 +332,7 @@ Now return to `rclone config` on sedna. You may have to delete the failed remote
 Return to your home computer's command line and type the following to get the token verification:
 
 ```{python}
+#| eval: false
 .\rclone authorize "drive"
 
 # Which results in a similar output to below:
