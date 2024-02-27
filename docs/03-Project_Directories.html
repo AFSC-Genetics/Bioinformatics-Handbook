@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Sara M Schaal">
-<meta name="dcterms.date" content="2024-01-16">
 
-<title>AFSC Bioinformatics Handbook</title>
+<title>AFSC Bioinformatics Handbook - 4&nbsp; Project Directories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-SEDNA_Slurm.html" rel="next">
+<link href="./04-sed_awk_grep.html" rel="next">
+<link href="./02-Text_Editors.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -83,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Project_Directories.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
@@ -128,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Project_Directories.html" class="sidebar-item-text sidebar-link">
+  <a href="./03-Project_Directories.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></span></a>
   </div>
 </li>
@@ -138,37 +137,39 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-File_Transfers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">File Transfer</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#guide-for-setting-up-project-directory" id="toc-guide-for-setting-up-project-directory" class="nav-link active" data-scroll-target="#guide-for-setting-up-project-directory"><span class="header-section-number">4.1</span> Guide for Setting up Project Directory</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AFSC Bioinformatics Handbook</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Sara M Schaal </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 16, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -178,15 +179,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to the AFSC Bioinformatics Handbook. This handbook is meant to be a guide for new and current lab members doing any bioinformatic work. The book covers creating an account with SEDNA, using the Slurm submission scheduler, local and command line text editors, basic awk/sed/grep commands, …</p>
-<p>If there is additional information that you would like to see on this page please reach out to Sara Schaal (sara.schaal@noaa.gov) or Patrick Barry (patrick.barry@noaa.gov).</p>
-<p>Additional bioinformatics resources:</p>
-<ul>
-<li><a href="https://eriqande.github.io/eca-bioinf-handbook/">Eric Anderson Bioinformatics Guide</a></li>
-<li><a href="https://docs.google.com/document/d/1nn0T0OWEsQCBoCdaH6DSY69lQSbK3XnPlseyyQuU2Lc/edit#heading=h.qpx57rvxr0sj">SEDNA Guide</a></li>
-</ul>
+<section id="guide-for-setting-up-project-directory" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="guide-for-setting-up-project-directory"><span class="header-section-number">4.1</span> Guide for Setting up Project Directory</h2>
+<p>Before beginning a project, you’ll want to set up a directory for your project. This can be named in whatever flavor you want, but an example would be setting a directory with the date you began the project and a few word description (e.g., 20231106_pcod_lcWGS). Alternatively if you work on a number of different projects for a given species and those analyses don’t interact maybe you want a header directory called ‘pcod’ and then within that a subfolder with that dates run (e.g., 20231106_lcWGS).</p>
+<p>IN PROGRESS</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -591,10 +590,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./02-Text_Editors.html" class="pagination-link  aria-label=" &lt;span="" editors&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Text Editors</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-SEDNA_Slurm.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>SEDNA and Slurm</span>">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SEDNA and Slurm</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04-sed_awk_grep.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>sed / awk / grep</span>">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

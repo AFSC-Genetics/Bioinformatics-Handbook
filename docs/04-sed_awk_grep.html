@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AFSC Bioinformatics Handbook - 4&nbsp; Project Directories</title>
+<title>AFSC Bioinformatics Handbook - 5&nbsp; sed / awk / grep</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04-sed_awk_grep.html" rel="next">
-<link href="./02-Text_Editors.html" rel="prev">
+<link href="./05-File_Transfers.html" rel="next">
+<link href="./03-Project_Directories.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-Project_Directories.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-sed_awk_grep.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -127,14 +127,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Project_Directories.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03-Project_Directories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-sed_awk_grep.html" class="sidebar-item-text sidebar-link">
+  <a href="./04-sed_awk_grep.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-File_Transfers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">File Transfer</span></span></a>
   </div>
 </li>
     </ul>
@@ -147,7 +153,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#guide-for-setting-up-project-directory" id="toc-guide-for-setting-up-project-directory" class="nav-link active" data-scroll-target="#guide-for-setting-up-project-directory"><span class="header-section-number">4.1</span> Guide for Setting up Project Directory</a></li>
+  <li><a href="#quick-guide-to-some-powerful-command-line-utilities" id="toc-quick-guide-to-some-powerful-command-line-utilities" class="nav-link active" data-scroll-target="#quick-guide-to-some-powerful-command-line-utilities"><span class="header-section-number">5.1</span> Quick guide to some powerful command line utilities</a>
+  <ul class="collapse">
+  <li><a href="#sed" id="toc-sed" class="nav-link" data-scroll-target="#sed"><span class="header-section-number">5.1.1</span> sed</a></li>
+  <li><a href="#awk" id="toc-awk" class="nav-link" data-scroll-target="#awk"><span class="header-section-number">5.1.2</span> awk</a></li>
+  <li><a href="#grep" id="toc-grep" class="nav-link" data-scroll-target="#grep"><span class="header-section-number">5.1.3</span> grep</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></h1>
 </div>
 
 
@@ -173,12 +184,23 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="guide-for-setting-up-project-directory" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="guide-for-setting-up-project-directory"><span class="header-section-number">4.1</span> Guide for Setting up Project Directory</h2>
-<p>Before beginning a project, you’ll want to set up a directory for your project. This can be named in whatever flavor you want, but an example would be setting a directory with the date you began the project and a few word description (e.g., 20231106_pcod_lcWGS). Alternatively if you work on a number of different projects for a given species and those analyses don’t interact maybe you want a header directory called ‘pcod’ and then within that a subfolder with that dates run (e.g., 20231106_lcWGS).</p>
+<section id="quick-guide-to-some-powerful-command-line-utilities" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="quick-guide-to-some-powerful-command-line-utilities"><span class="header-section-number">5.1</span> Quick guide to some powerful command line utilities</h2>
+<p>Introductory text IN PROGRESS</p>
+<section id="sed" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sed"><span class="header-section-number">5.1.1</span> sed</h3>
+<p>IN PROGRESS</p>
+</section>
+<section id="awk" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="awk"><span class="header-section-number">5.1.2</span> awk</h3>
+<p>IN PROGRESS</p>
+</section>
+<section id="grep" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="grep"><span class="header-section-number">5.1.3</span> grep</h3>
 <p>IN PROGRESS</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -584,13 +606,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02-Text_Editors.html" class="pagination-link  aria-label=" &lt;span="" editors&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Text Editors</span></span>
+      <a href="./03-Project_Directories.html" class="pagination-link  aria-label=" &lt;span="" directories&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Project Directories</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04-sed_awk_grep.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>sed / awk / grep</span>">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">sed / awk / grep</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05-File_Transfers.html" class="pagination-link" aria-label="<span class='chapter-number'>6</span>&nbsp; <span class='chapter-title'>File Transfer</span>">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">File Transfer</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
