@@ -13,6 +13,7 @@ book:
     - 02-Text_Editors.qmd
     - 03-Project_Directories.qmd
     - 04-sed_awk_grep.qmd
+    - 05-File_Transfers.qmd
 
 bibliography: [references.bib, book.bib]
 

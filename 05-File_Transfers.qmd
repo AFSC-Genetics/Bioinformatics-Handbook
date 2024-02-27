@@ -1,0 +1,331 @@
+---
+title: "File Transfer"
+author: "Natasha Howe"
+format: html
+editor: visual
+---
+
+## RCLONE
+
+Rclone allows you to transfer information between google drive and sedna. This is the most likely need for rclone in this lab, but it is not limited to that application. The [Sedna informational document](https://docs.google.com/document/d/1nn0T0OWEsQCBoCdaH6DSY69lQSbK3XnPlseyyQuU2Lc/edit?pli=1#heading=h.qpx57rvxr0sj) has basic steps to get started with rclone, which can use to get started in place of this handbook. This page provides instructions on how to began with rclone, but it will not cover all of rclone's usages, which can be found at their [website](https://rclone.org/). However, if you are accessing the remote server on a Windows computer, you may run into more issues than that of Linux/Mac, and troubleshooting steps are included below if necessary.
+
+## Configuring rclone on your sedna account
+
+This section is essentially a copy of what is on the SEDNA bioinformatics cluster information document, but it is also present here to get you started. This information is currently only to transfer from sedna to a google drive account, but rclone has more services than just this.
+
+When you first connect to sedna, use the below command by adding the local host.
+
+```{python}
+# replace USERNAME with your sedna account name
+ssh -L localhost:53682:localhost:53682 USERNAME@sedna.nwfsc2.noaa.gov
+```
+
+First, load rclone on sedna.
+
+```{python}
+module load tools/rclone/1.59.2
+```
+
+Configure a remote directory using the following steps:
+
+```{python}
+# Step 1
+rclone config
+
+# Step 2
+# type n for "new remote" and name it, then hit enter
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q> n
+name> RCLONE_DRIVE_NAME
+
+# Step 3
+# choose your storage, which is likely Google Drive
+# if google drive, type 18
+Option Storage.
+Type of storage to configure.
+Choose a number from below, or type in your own value.
+ 1 / 1Fichier
+   \ (fichier)
+ 2 / Akamai NetStorage
+   \ (netstorage)
+ 3 / Alias for an existing remote
+   \ (alias)
+ 4 / Amazon Drive
+   \ (amazon cloud drive)
+...
+16 / FTP
+   \ (ftp)
+17 / Google Cloud Storage (this is not Google Drive)
+   \ (google cloud storage)
+18 / Google Drive
+   \ (drive)
+19 / Google Photos
+   \ (google photos)
+20 / HTTP
+   \ (http)
+...
+49 / seafile
+   \ (seafile)
+Storage> 18
+
+# Step 4
+# just hit enter without typing anything here
+Option client_id.
+Google Application Client Id
+Setting your own is recommended.
+See https://rclone.org/drive/#making-your-own-client-id for how to create your own.
+If you leave this blank, it will use an internal key which is low performance.
+Enter a value. Press Enter to leave empty.
+client_id>
+
+# Step 5
+# same here, just enter
+Option client_secret.
+OAuth Client Secret.
+Leave blank normally.
+Enter a value. Press Enter to leave empty.
+client_secret>
+
+#Step 6
+# choose 1 for full access
+Option scope.
+Scope that rclone should use when requesting access from drive.
+Choose a number from below, or type in your own value.
+Press Enter to leave empty.
+ 1 / Full access all files, excluding Application Data Folder.
+   \ (drive)
+ 2 / Read-only access to file metadata and file contents.
+   \ (drive.readonly)
+   / Access to files created by rclone only.
+ 3 | These are visible in the drive website.
+   | File authorization is revoked when the user deauthorizes the app.
+   \ (drive.file)
+   / Allows read and write access to the Application Data folder.
+ 4 | This is not visible in the drive website.
+   \ (drive.appfolder)
+   / Allows read-only access to file metadata but
+ 5 | does not allow any access to read or download file content.
+   \ (drive.metadata.readonly)
+scope> 1
+
+# Step 7
+# again, hit enter
+Option service_account_file.
+Service Account Credentials JSON file path.
+Leave blank normally.
+Needed only if you want use SA instead of interactive login.
+Leading `~` will be expanded in the file name as will environment variables such as `${RCLONE_CONFIG_DIR}`.
+Enter a value. Press Enter to leave empty.
+service_account_file>
+
+# Step 8
+# do not edit advanced contig, n
+Edit advanced config?
+y) Yes
+n) No (default)
+y/n> n
+
+# Step 9
+# This step is where you may run into issues with a PC
+# First, try "y" for auto config
+Use auto config?
+ * Say Y if not sure
+ * Say N if you are working on a remote or headless machine
+y) Yes (default)
+n) No
+y/n> y
+
+# this will provide the following output, which contains a website that you will copy and paste into a browser on your computer
+2024/02/08 12:04:56 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=r9jyi5-A0or3ILWoMU6WqQ
+2024/02/08 12:04:56 NOTICE: Log in and authorize rclone for access
+2024/02/08 12:04:56 NOTICE: Waiting for code...
+
+```
+
+If the auto config works, it will give you this screen, to which you would select "Allow":
+
+![](rclone_website.PNG){width="317"}
+
+This will result in a new screen that says **"Success! All done. Please go back to rclone."**
+
+If this step does not work as shown above (often the website will show an error), skip to the "**Troubleshooting"** section below.
+
+If the above step worked, you should see "Got code" on your ssh, and the next step will appear.
+
+```{python}
+2024/02/08 12:07:06 NOTICE: Got code
+
+# Step 10
+# Choose whichever matches your destination
+# If transferring to/from ABL Genetics, select y
+# If transferring to/from your own drive, select n
+Configure this as a Shared Drive (Team Drive)?
+
+y) Yes
+n) No (default)
+y/n> y
+
+# Step 11
+# select ABL Genetics, 1
+Option config_team_drive.
+Shared Drive
+Choose a number from below, or type in your own string value.
+Press Enter for the default (0AFAMZunTPxmIUk9PVA).
+ 1 / ABL Genetics
+   \ (0AFAMZunTPxmIUk9PVA)
+config_team_drive> 1
+
+# Step 12
+# Results, and say "Yes this is OK", y
+Configuration complete.
+Options:
+- type: drive
+- scope: drive
+- token: {"access_token":"ya29.a0AfB_byDuRDuRvJDxOmj-HHz6bWinV4FRRzDYmXFj9MriIjURlXFGvTftorRwBXcAOmxUy22xjrVtDSfgMP4BoUU6v4Bcc6r3PSBZsMbNR_k5bGBccC0cipjfAZsK0x9_Rj11-6c0ihQTLC3kj3eXmiHqUbojaCNhIpSpaCgYKARoSARESFQHGX2MiXF3vjKG4BidUr_isGHQQ8A0171","token_type":"Bearer","refresh_token":"1//06BWwBypNxLDJCgYIARAAGAYSNwF-L9Ir1jygSebphM0ZicoL24k5P_vsQ5rrrnmqSlCVHCZ-b8J2jHUXhI1ZTX30FeK6yVEL90M","expiry":"2024-02-08T13:07:05.909470766-08:00"}
+- team_drive: 0AFAMZunTPxmIUk9PVA
+- root_folder_id:
+Keep this "test" remote?
+y) Yes this is OK (default)
+e) Edit this remote
+d) Delete this remote
+y/e/d> y
+
+# Step 13
+# Lastly, it will show you your current configured remotes
+# Quit to get out of rclone config, q
+# To set up another remote directory, n
+Current remotes:
+
+Name                 Type
+====                 ====
+ablg_shared          drive
+nh_google            drive
+RCLONE_DRIVE_NAME    drive
+
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q> q
+```
+
+You may notice that there are three directories set up in this example. It may be easiest to create two rclone remote directories immediately - one for the shared ABL Genetics Google drive and another for your separate Google drive folders. If you first set it up for the shared drive, you can go through the above steps again and create a new remote directory for your own drive folders by selecting "No" on the *Shared Drive* step.
+
+Check that your remote directory leads you to the Google Drive folders you want:
+
+```{python}
+# list directories
+rclone lsd RCLONE_DRIVE_NAME:
+  
+# for the ABL Genetics folder, I named my rclone directory "ablg_shared"
+rclone lsd ablg_shared:
+          -1 2023-10-30 14:18:15        -1 Whole genome backup
+          -1 2023-11-20 11:59:28        -1 rockfishLET
+```
+
+If the data to be transferred is shared with you on Google (which is different from a shared drive), use the `--drive-shared-with-me` flag. You can only access this if you *do not* set up your directory as a shared drive.
+
+```{python}
+rclone lsd RCLONE_DRIVE_NAME: --drive-shared-with-me
+          -1 2021-04-22 17:00:11        -1 SEDNA for users
+          -1 2023-11-19 22:49:14        -1 pink_salmon_run_timing
+          -1 2023-11-20 10:11:41        -1 sockeye_whole_genome_dat_for_laura
+
+# investigate subfolders
+rclone lsd RCLONE_DRIVE_NAME:pink_salmon_run_timing --drive-shared-with-me
+          -1 2023-12-06 15:19:45        -1 Data
+          -1 2023-11-20 10:31:36        -1 HighRes_Figures
+```
+
+You can search within subdirectories. Also, if you want to see the content of the folders, use `ls` to list all the files and the file sizes.
+
+```{python}
+rclone ls RCLONE_DRIVE_NAME:pink_salmon_run_timing/Data --drive-shared-with-me
+      108 Pink_blocklist_1x.txt
+    22080 Pink_filtered_bamslist.txt
+```
+
+There are a host of other rclone commands, and you can peruse the "commands" tab on their website to see further functionality. For example, `rclone tree` can be used to look at the files, and all files in subdirectories.
+
+## Transferring data to/from your rclone directory
+
+First, get on a compute node for the data transfer.
+
+```{python}
+#| eval: false
+srun -c 1 -t 12:00:00 --pty /bin/bash
+```
+
+Use the `rclone copy` command to transfer data. It incorporates its own checksum system during the transfer, so you can cancel and restart a transfer, and it should pick up where it left off without issues. If you want to see output during the transfer, you can add the verbose flag `-v` at the end of the line. If you are transferring to/from a drive shared with you, make sure to include the `--drive-shared-with-me` flag.
+
+```{python}
+# FROM SEDNA TO GOOGLE DRIVE
+rclone copy /home/usr/directory/to/file.txt RCLONE_DRIVE_NAME:google/drive/directory -v
+
+# From Google Drive to sedna for a google folder that was shared with me
+rclone copy RCLONE_DRIVE_NAME:google/drive/directory /home/usr/directory/to/transfer --drive-shared-with-me
+
+```
+
+If you plan to transfer entire folders, you can do more than one file at a time.
+
+```{python}
+
+# navigate to directory 
+cd /directory/to/transfer
+
+rclone copy . RCLONE_DRIVE_NAME:google/drive/directory/ -v
+
+# alternatively, you can copy one file at a time using the following for loop (from Laura), which can also be used to subset the data to transfer this way as well.
+for i in /directory/to/transfer/ABLG*; do echo ${i}; rclone copy ${i} RCLONE_DRIVE_NAME:google/drive/directory/ -v; done
+```
+
+Check if the entire folder was transferred properly if you are currently in the directory that has transferred. *NH - need to double check the code for this (**does it accept the astericks?**).*
+
+```{python}
+rclone check RCLONE_DRIVE_NAME:google_drive_folder/* . --one-way
+```
+
+Drawback of rclone: If you are transferring large amounts of data, you may run into an issue where your user rate limit is exceeded. This is a function of Google security measures that prevent continuous transferring in order to ward off illegal activities. As far as I am aware, there is no immediate solution, so you may have to wait hours (or longer) to restart your data transfer.
+
+```{python}
+ERROR : Failed to copy: googleapi: Error 403: User rate limit exceeded., userRateLimitExceeded
+```
+
+## Troubleshooting rclone config - likely just for PC users.
+
+If the auto config does not work, you may have to download rclone onto your home computer. Start by downloading rclone: <https://downloads.rclone.org/v1.59.2/>
+
+Extract the executable file.
+
+On the command line for your home computer, navigate to the folder where you extracted the executable file. For me that is:
+
+```{python}
+cd C:\rclone\rclone-v1.52.9-windows-amd64
+
+# I only had to complete this step once after downloading.
+start .\rclone.exe 
+```
+
+Now return to `rclone config` on sedna. You may have to delete the failed remote directory and start a new one, completing all the steps as above until you get to `use auto config?`, for which you say `no`.
+
+Return to your home computer's command line and type the following to get the token verification:
+
+```{python}
+.\rclone authorize "drive"
+
+# Which results in a similar output to below:
+
+If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=JF1IBQPMBWThTru98O2MKw Log in and authorize rclone for access Waiting for code... Got code Paste the following into your remote machine ---\> {"access_token":"ya29.a0AfB_byAxDN2Pf5cBYrBcK9P8_hhgVSfztkf_K_iQ2j15febzaFqlSNPsJXfj9L4b2J7rXXIFzbq7e6W-mrupSU--p0tTi7iA6rnpdwC95mYQk_h7gU6m56Xa-LFu32WJyencRkz2lt1d_MS8-wN1jDN4OI9Y8k1H-8xJaCgYKAfASARESFQHGX2MibtA9KFMk-266SPqNRR_Zow0171","token_type":"Bearer","refresh_token":"1//06RybmGeNK7-kCgYIARAAGAYSNwF-L9Ir2qWdHgTpfdzNMLDUhPSr7_keDi6edSn9_T61ADm06_o7lmV0U6uSFKJBlpwgrunn6hA","expiry":"2023-11-20T21:21:50.0984646-08:00"} \<---End paste
+```
+
+Copy everything including the {} and paste in the sedna ssh `rclone config` token verification. It should pop up a window and then you should be able to continue with the configuration as described above.
