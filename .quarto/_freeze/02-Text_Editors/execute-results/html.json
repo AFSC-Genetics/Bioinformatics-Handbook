@@ -1,0 +1,12 @@
+{
+  "hash": "fd8e2a38c683b9e51d4c056ac6d84a41",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Text Editors\"\neditor: visual\n---\n\n### Local text editors vs. unix text editors\n\nTo write your scripts, you can either write via a local text editor and then upload the script to the cluster or you can write/edit a script directly on the command line. It is good practice to always update your scripts on both your local drive copy and on Sedna in order to keep track of changes you have made. Whether you write/edit locally or on sedna is your personal preference, but ensure you keep an updated copy on both locations.\n\n#### Sublime Text\n\nIN PROGRESS\n\n#### vim\n\nIN PROGRESS\n\n### Moving files to and from servers\n\nTo move a files, you should use the `scp` command which is generally formatted as follows `scp <path from source> <path to destination>`\n\nTo move a file from your local computer to sedna you can use the following script:\n\n::: {#cf8263d0 .cell execution_count=1}\n``` {.python .cell-code}\nscp -P 22 <username>@161.55.52.157:<SEDNA_PATH>/<filename> <LOCAL_PATH>\n```\n:::\n\n\nTo move a file from sedna to your local computer you can use the following:\n\n::: {#ec17d322 .cell execution_count=2}\n``` {.python .cell-code}\nscp -P 22 <LOCAL_PATH>\\<filename> <username>@sedna.nwfsc2.noaa.gov:<SEDNA_PATH>\n```\n:::\n\n\nTo move an entire directory you would add the `-r` flag:\n\n::: {#69d67c0a .cell execution_count=3}\n``` {.python .cell-code}\nscp -P 22 -r <username>@161.55.52.157:<SEDNA_PATH>/<foldername> <LOCAL_PATH>\n```\n:::\n\n\n",
+    "supporting": [
+      "02-Text_Editors_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

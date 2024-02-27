@@ -1,0 +1,20 @@
+{
+  "index.qmd": {
+    "index.html": "fb644369"
+  },
+  "01-SEDNA_Slurm.qmd": {
+    "01-SEDNA_Slurm.html": "22674237"
+  },
+  "02-Text_Editors.qmd": {
+    "02-Text_Editors.html": "457c8615"
+  },
+  "03-Project_Directories.qmd": {
+    "03-Project_Directories.html": "585f833c"
+  },
+  "04-sed_awk_grep.qmd": {
+    "04-sed_awk_grep.html": "479aaae0"
+  },
+  "05-File_Transfers.qmd": {
+    "05-File_Transfers.html": "77c9a028"
+  }
+}

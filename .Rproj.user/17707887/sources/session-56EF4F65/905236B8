@@ -1,0 +1,29 @@
+{
+    "id": "905236B8",
+    "path": "~/Lab_Github/Bioinformatics-Handbook/01-SEDNA_Slurm.qmd",
+    "project_path": "01-SEDNA_Slurm.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1705435285231.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2:0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1705434546,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1705434546,
+    "read_only": false,
+    "read_only_alternatives": []
+}
