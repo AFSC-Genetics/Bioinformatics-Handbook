@@ -297,11 +297,11 @@ rclone copy . RCLONE_DRIVE_NAME:google/drive/directory/ -v
 for i in /directory/to/transfer/ABLG*; do echo ${i}; rclone copy ${i} RCLONE_DRIVE_NAME:google/drive/directory/ -v; done
 ```
 
-Check if the entire folder was transferred properly if you are currently in the directory that has transferred. *NH - need to double check the code for this (**does it accept the astericks?**).*
+Check if the entire folder was transferred properly if you are currently in the directory that has transferred.
 
 ```{python}
 #| eval: false
-rclone check RCLONE_DRIVE_NAME:google_drive_folder/* . --one-way
+rclone check RCLONE_DRIVE_NAME:google/drive/path/ . --one-way
 ```
 
 Drawback of rclone: If you are transferring large amounts of data, you may run into an issue where your user rate limit is exceeded. This is a function of Google security measures that prevent continuous transferring in order to ward off illegal activities. As far as I am aware, there is no immediate solution, so you may have to wait hours (or longer) to restart your data transfer.
